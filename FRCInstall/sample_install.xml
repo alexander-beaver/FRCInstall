@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs>
+	<Program>
+		<Type>Asset</Type>
+		<Name>WPILib Docs (HTML)</Name>
+		<FileName>frc-docs-latest.zip</FileName>
+		<URL>https://readthedocs.org/projects/frc-docs/downloads/htmlzip/latest/</URL>
+		<Year>2020</Year>
+		<Revision>0</Revision>
+		<Zip>true</Zip>
+	</Program>
+	<Program>
+		<Type>EXE</Type>
+		<Name>Game Tools</Name>
+		<FileName>ni-frc-2020-game-tools_20.0_online.exe</FileName>
+		<URL>https://download.ni.com/support/nipkg/products/ni-f/ni-frc-2020-game-tools/20.0/online/ni-frc-2020-game-tools_20.0_online.exe</URL>
+		<Year>2020</Year>
+		<Revision>0</Revision>
+		<Zip>false</Zip>
+	</Program>
+</Programs>

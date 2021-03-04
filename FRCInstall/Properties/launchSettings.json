@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "FRCInstall": {
+      "commandName": "Project"
+    },
+    "Help": {
+      "commandName": "Project",
+      "commandLineArgs": "help"
+    },
+    "Init": {
+      "commandName": "Project",
+      "commandLineArgs": "init https://alexbeaver.com/s/sample_install.xml"
+    }
+  }
+}
