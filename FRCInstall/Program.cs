@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Xml;
 using System.Xml.Linq;
+using System.Diagnostics;
 
 /**
  * A program to process remote installation of FRC Tools
@@ -16,18 +18,21 @@ namespace FRCInstall
     {
         static string root = @"C:\Users\Public\Documents\frcinstall";
 
-
-        static XElement readXML(string url)
+        /**
+         * Reads an XML file from a file (absolute path) or url and returns it as an XElement
+         */
+        static XElement ReadXML(string url)
         {
             XElement doc = XElement.Load(url);
             return doc;
         }
 
-        static void writeTextToDocument(string path, string content){
+
+        static void WriteTextToDocument(string path, string content){
             string realPath = root + path;
             File.WriteAllText(realPath, content);
         }
-        static string readDocument(string path)
+        static string ReadDocument(string path)
         {
             string contents = File.ReadAllText(root+path);
             return contents;
@@ -38,7 +43,7 @@ namespace FRCInstall
          * 
          * Note that this uses an absolute path, rather than a relative like used elsewhere
          */
-        static void eradicateDirectory(string path)
+        static void EradicateDirectory(string path)
         {
 
             if (System.IO.Directory.Exists(path))
@@ -57,31 +62,85 @@ namespace FRCInstall
             }
         }
 
-        static void initializePackageManager(string url)
+        static void InitializePackageManager(string url)
         {
-            writeTextToDocument(@"\origin.frcconfig", url);
-            installUpdates();
+            WriteTextToDocument(@"\origin.frcconfig", url);
+            InstallUpdates();
         }
 
-        static void installProgram(XElement program)
+        static string CreatePKGString(string year, string rev)
+        {
+            return year + "|" + rev;
+        }
+
+        static string DownloadTempFile(String url, String name)
+        {
+            WebClient w = new WebClient();
+            w.DownloadFile(url, root + @"\temp\" + name);
+            return root + @"\temp\" + name;
+        }
+
+        static void InstallProgram(XElement program)
         {
             string type = (string)program.Element("Type");
             string name = (string)program.Element("Name");
             string fileName = (string)program.Element("FileName");
-            Console.WriteLine(fileName);
+            string year = (string)program.Element("Year");
+            string rev = (string)program.Element("Revision");
+            string url = (string)program.Element("URL");
+            bool zip = (bool)program.Element("Zip");
+
+
+            string entryPath = root + @"\entries\" + name + ".FRCPKG";
+
+            if (File.Exists(entryPath))
+            {
+                string version = ReadDocument(entryPath);
+
+                if (CreatePKGString(year, rev).Equals(version))
+                {
+                    return;
+
+                }
+                else
+                {
+
+                    
+                }
+
+
+            }
+            if (type == "EXE")
+            {
+                if (zip)
+                {
+
+                }
+                else
+                {
+                    String executable = DownloadTempFile(url, fileName);
+                    Process.Start(executable);
+                }
+
+            }
+
+
         }
 
-        static void installUpdates()
+        static void InstallUpdates()
         {
-            string origin = readDocument(@"\origin.frcconfig");
+            string origin = ReadDocument(@"\origin.frcconfig");
+            EradicateDirectory(root + @"\temp");
+            System.IO.Directory.CreateDirectory(root + @"\temp");
 
-            XElement doc = readXML(origin);
+
+            XElement doc = ReadXML(origin);
             Console.WriteLine(doc);
 
             XElement[] programs = doc.Descendants("Program").ToArray();
             for(int i = 0; i < programs.Length; i++)
             {
-                installProgram(programs[i]);
+                InstallProgram(programs[i]);
             }
         }
 
@@ -106,12 +165,12 @@ namespace FRCInstall
             {
                 if(args.Length >= 2)
                 {
-                    eradicateDirectory(root);
+                    EradicateDirectory(root);
                     System.IO.Directory.CreateDirectory(root);
                     System.IO.Directory.CreateDirectory(root + @"\entries");
                     System.IO.Directory.CreateDirectory(root + @"\temp");
 
-                    initializePackageManager(args[1]);
+                    InitializePackageManager(args[1]);
                     Environment.Exit(0);
                     
                 }
