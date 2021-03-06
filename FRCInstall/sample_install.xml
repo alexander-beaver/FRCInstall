@@ -16,18 +16,6 @@
 		<Revision>0</Revision>
 		<Zip>true</Zip>
 	</Program>
-
-  <Program>
-    <Type>EXE</Type>
-    <Name>NavX</Name>
-    <FileName>navx-mxp.zip</FileName>
-    <ExecutableName>setup.exe</ExecutableName>
-    <URL>https://www.kauailabs.com/public_files/navx-mxp/navx-mxp.zip</URL>
-    <Year>2021</Year>
-    <Revision>0</Revision>
-    <Zip>true</Zip>
-  </Program>
-  
 	<Program>
 		<Type>Asset</Type>
 		<Name>Game Manual (PDF)</Name>
@@ -55,15 +43,16 @@
 		<Revision>0</Revision>
 		<Zip>false</Zip>
 	</Program>
-	<Program>
-		<Type>EXE</Type>
-		<Name>NavX</Name>
-		<FileName>navx-mxp.exe</FileName>
-		<URL>https://www.kauailabs.com/public_files/navx-mxp/navx-mxp.zip</URL>
-		<Year>2021</Year>
-		<Revision>0</Revision>
-		<Zip>true</Zip>
-	</Program>
+  <Program>
+    <Type>EXE</Type>
+    <Name>NavX</Name>
+    <FileName>navx-mxp.zip</FileName>
+    <ExecutableName>setup.exe</ExecutableName>
+    <URL>https://www.kauailabs.com/public_files/navx-mxp/navx-mxp.zip</URL>
+    <Year>2021</Year>
+    <Revision>0</Revision>
+    <Zip>true</Zip>
+  </Program>
 		<Program>
 		<Type>EXE</Type>
 		<Name>REV Client</Name>
@@ -73,12 +62,12 @@
 		<Revision>0</Revision>
 		<Zip>false</Zip>
 	</Program>
-	</Program>
 		<Program>
 		<Type>EXE</Type>
 		<Name>Radio Configuration Tool</Name>
 		<FileName>FRC_Radio_Configuration_20_0_0.exe</FileName>
-		<URL>https://firstfrc.blob.core.windows.net/frc2020/Radio/FRC_Radio_Configuration_20_0_0.zip</URL>
+     <ExecutableName>FRC_Radio_Configuration_20_0_0.exe</ExecutableName>
+     <URL>https://firstfrc.blob.core.windows.net/frc2020/Radio/FRC_Radio_Configuration_20_0_0.zip</URL>
 		<Year>2020</Year>
 		<Revision>0</Revision>
 		<Zip>true</Zip>
