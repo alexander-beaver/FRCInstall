@@ -1,4 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+	to add: 
+		1.wpilib's wierd installer
+		2.python 3.8 and openCV optional?
+		3.vscode installer if not handeled during wpilib install
+		4.Israel radio config tool because 5ghz is for scrubs
+-->
 <Programs>
 	<Program>
 		<Type>Asset</Type>
@@ -22,6 +29,15 @@
   </Program>
   
 	<Program>
+		<Type>Asset</Type>
+		<Name>Game Manual (PDF)</Name>
+		<FileName>2021FRCGameManual.pdf</FileName>
+		<URL>https://firstfrc.blob.core.windows.net/frc2021/Manual/2021FRCGameManual.pdf</URL>
+		<Year>2021</Year>
+		<Revision>0</Revision>
+		<Zip>true</Zip>
+	</Program>
+	<Program>
 		<Type>EXE</Type>
 		<Name>Game Tools</Name>
 		<FileName>ni-frc-2020-game-tools_20.0_online.exe</FileName>
@@ -29,5 +45,42 @@
 		<Year>2020</Year>
 		<Revision>0</Revision>
 		<Zip>false</Zip>
+	</Program>
+	<Program>
+		<Type>EXE</Type>
+		<Name>Phoenix Framework</Name>
+		<FileName>CTRE_Phoenix_Framework_v5.19.4.1.exe</FileName>
+		<URL>https://github.com/CrossTheRoadElec/Phoenix-Releases/releases/download/v5.19.4.1/CTRE_Phoenix_Framework_v5.19.4.1.exe</URL>
+		<Year>2021</Year>
+		<Revision>0</Revision>
+		<Zip>false</Zip>
+	</Program>
+	<Program>
+		<Type>EXE</Type>
+		<Name>NavX</Name>
+		<FileName>navx-mxp.exe</FileName>
+		<URL>https://www.kauailabs.com/public_files/navx-mxp/navx-mxp.zip</URL>
+		<Year>2021</Year>
+		<Revision>0</Revision>
+		<Zip>true</Zip>
+	</Program>
+		<Program>
+		<Type>EXE</Type>
+		<Name>REV Client</Name>
+		<FileName>REV-Hardware-Client-Setup-1.1.0.exe</FileName>
+		<URL>https://www.revrobotics.com/content/sw/rev-hw-client/REV-Hardware-Client-Setup-1.1.0.exe</URL>
+		<Year>2021</Year>
+		<Revision>0</Revision>
+		<Zip>false</Zip>
+	</Program>
+	</Program>
+		<Program>
+		<Type>EXE</Type>
+		<Name>Radio Configuration Tool</Name>
+		<FileName>FRC_Radio_Configuration_20_0_0.exe</FileName>
+		<URL>https://firstfrc.blob.core.windows.net/frc2020/Radio/FRC_Radio_Configuration_20_0_0.zip</URL>
+		<Year>2020</Year>
+		<Revision>0</Revision>
+		<Zip>true</Zip>
 	</Program>
 </Programs>
