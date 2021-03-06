@@ -139,7 +139,7 @@ namespace FRCInstall
                 else
                 {
                     String asset = DownloadTempFile(url, fileName);
-                    System.IO.File.Copy(asset, root + @"\" + name, true);
+                    System.IO.File.Copy(asset, root + @"\" + fileName, true);
                 }
 
             }
