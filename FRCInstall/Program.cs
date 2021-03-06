@@ -115,9 +115,12 @@ namespace FRCInstall
             {
                 if (zip)
                 {
+                    string execut = (string)program.Element("FileName");
+                    Console.WriteLine("installing zipexe");
                     String zippedEXE = DownloadTempFile(url, fileName);
-                    ZipFile.ExtractToDirectory(zippedEXE, root + @"\temp\unzipped\" + name + @"\" + name);
-                    String executable = root + @"\temp\unzipped\" + name + @"\" + name;
+                    ZipFile.ExtractToDirectory(zippedEXE, root + @"\temp\unzipped\" + name);
+                    String executable = root + @"\temp\unzipped\" + name + @"\" + (string)program.Element("ExecutableName");
+                    Console.WriteLine(executable);
                     Process.Start(executable);
                 }
                 else
@@ -187,6 +190,8 @@ namespace FRCInstall
                     System.IO.Directory.CreateDirectory(root);
                     System.IO.Directory.CreateDirectory(root + @"\entries");
                     System.IO.Directory.CreateDirectory(root + @"\temp");
+
+                    Console.WriteLine(args[1]);
 
                     InitializePackageManager(args[1]);
                     Environment.Exit(0);

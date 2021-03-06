@@ -9,7 +9,7 @@
     },
     "Init": {
       "commandName": "Project",
-      "commandLineArgs": "init https://alexbeaver.com/s/sample_install.xml"
+      "commandLineArgs": "init ../../../sample_install.xml"
     }
   }
 }
