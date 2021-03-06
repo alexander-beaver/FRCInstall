@@ -120,7 +120,6 @@ namespace FRCInstall
                     String zippedEXE = DownloadTempFile(url, fileName);
                     ZipFile.ExtractToDirectory(zippedEXE, root + @"\temp\unzipped\" + name);
                     String executable = root + @"\temp\unzipped\" + name + @"\" + (string)program.Element("ExecutableName");
-                    Console.WriteLine(executable);
                     Process.Start(executable);
                 }
                 else
@@ -134,11 +133,13 @@ namespace FRCInstall
             {
                 if (zip)
                 {
-                    //ZipFile.ExtractToDirectory(zippedEXE, folderBrowserDialog1.SelectedPath);
+                    String asset = DownloadTempFile(url, fileName);
+                    ZipFile.ExtractToDirectory(asset, root + @"\" + name);
                 }
                 else
                 {
-
+                    String asset = DownloadTempFile(url, fileName);
+                    System.IO.File.Copy(asset, root + @"\" + name, true);
                 }
 
             }
