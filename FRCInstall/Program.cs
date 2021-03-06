@@ -5,6 +5,7 @@ using System.Net;
 using System.Xml;
 using System.Xml.Linq;
 using System.Diagnostics;
+using System.IO.Compression;
 
 /**
  * A program to process remote installation of FRC Tools
@@ -114,12 +115,27 @@ namespace FRCInstall
             {
                 if (zip)
                 {
-
+                    String zippedEXE = DownloadTempFile(url, fileName);
+                    ZipFile.ExtractToDirectory(zippedEXE, root + @"\temp\unzipped\" + name + @"\" + name);
+                    String executable = root + @"\temp\unzipped\" + name + @"\" + name;
+                    Process.Start(executable);
                 }
                 else
                 {
                     String executable = DownloadTempFile(url, fileName);
                     Process.Start(executable);
+                }
+
+            }
+            if (type == "Asset")
+            {
+                if (zip)
+                {
+                    //ZipFile.ExtractToDirectory(zippedEXE, folderBrowserDialog1.SelectedPath);
+                }
+                else
+                {
+
                 }
 
             }
@@ -158,6 +174,8 @@ namespace FRCInstall
             }
             if (args[0] == "help")
             {
+                Console.WriteLine("Please run the powershell script instead of the exe directly");
+                Console.WriteLine("If you meant to do this, add arguments for an output directory then a path to an xml file");
                 Environment.Exit(0);
             }
             
