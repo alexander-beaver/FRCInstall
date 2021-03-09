@@ -128,7 +128,7 @@ namespace FRCInstall
                     executable = DownloadTempFile(url, fileName);
                     //Process.Start(executable);
                 }
-                System.Diagnostics.Process.Start(executable);
+                System.Diagnostics.Process.Start(executable, arguments);
             }
             if (type == "Asset")
             {
