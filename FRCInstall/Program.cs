@@ -118,6 +118,7 @@ namespace FRCInstall
                 string installerArguments = "/S";
                 Console.WriteLine("downloading: " + name);
                 String installerISO = DownloadTempFile(url, fileName);
+                Console.WriteLine("finished downloading: " + name);
                 using (FileStream isoStream = File.OpenRead(installerISO))
                 {
                     CDReader cd = new CDReader(isoStream, true);
@@ -178,7 +179,7 @@ namespace FRCInstall
                     String asset = DownloadTempFile(url, fileName);
                     System.IO.File.Copy(asset, root + @"\" + fileName, true);
                 }
-                Console.WriteLine("downloaded: " + fileName + "to C:\\Users\\Public\\Documents\\frcinstall");
+                Console.WriteLine("downloaded: " + fileName + " to C:\\Users\\Public\\Documents\\frcinstall");
             }
 
 
