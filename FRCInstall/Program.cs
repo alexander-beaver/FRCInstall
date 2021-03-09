@@ -241,6 +241,7 @@ namespace FRCInstall
                     String asset = DownloadTempFile(url, fileName);
                     System.IO.File.Copy(asset, root + @"\" + fileName, true);
                 }
+                Thread.Sleep(200);
                 Console.WriteLine("\ndownloaded: " + fileName + " to C:\\Users\\Public\\Documents\\frcinstall");
             }
 
