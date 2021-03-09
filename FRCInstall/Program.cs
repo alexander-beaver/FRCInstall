@@ -9,6 +9,7 @@ using System.IO.Compression;
 using DiscUtils;
 using DiscUtils.Iso9660;
 using System.ComponentModel;
+using System.Threading;
 
 /**
  * A program to process remote installation of FRC Tools
@@ -149,6 +150,57 @@ namespace FRCInstall
             }
         }
 
+        void ExtractISO(string ISOName, string ExtractionPath)
+        {
+            using (FileStream ISOStream = File.Open(ISOName, FileMode.Open))
+            {
+                CDReader Reader = new CDReader(ISOStream, true, true);
+                ExtractDirectory(Reader.Root, ExtractionPath + Path.GetFileNameWithoutExtension(ISOName) + "\\", "");
+                Reader.Dispose();
+            }
+        }
+        void ExtractDirectory(DiscDirectoryInfo Dinfo, string RootPath, string PathinISO)
+        {
+            if (!string.IsNullOrWhiteSpace(PathinISO))
+            {
+                PathinISO += "\\" + Dinfo.Name;
+            }
+            RootPath += "\\" + Dinfo.Name;
+            AppendDirectory(RootPath);
+            foreach (DiscDirectoryInfo dinfo in Dinfo.GetDirectories())
+            {
+                ExtractDirectory(dinfo, RootPath, PathinISO);
+            }
+            foreach (DiscFileInfo finfo in Dinfo.GetFiles())
+            {
+                using (Stream FileStr = finfo.OpenRead())
+                {
+                    using (FileStream Fs = File.Create(RootPath + "\\" + finfo.Name)) // Here you can Set the BufferSize Also e.g. File.Create(RootPath + "\\" + finfo.Name, 4 * 1024)
+                    {
+                        FileStr.CopyTo(Fs, 4 * 1024); // Buffer Size is 4 * 1024 but you can modify it in your code as per your need
+                    }
+                }
+            }
+        }
+        static void AppendDirectory(string path)
+        {
+            try
+            {
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+            }
+            catch (DirectoryNotFoundException Ex)
+            {
+                AppendDirectory(Path.GetDirectoryName(path));
+            }
+            catch (PathTooLongException Exx)
+            {
+                AppendDirectory(Path.GetDirectoryName(path));
+            }
+        }
+
         static void InstallProgram(XElement program)
         {
             string type = (string)program.Element("Type");
@@ -185,26 +237,13 @@ namespace FRCInstall
                 Console.WriteLine("downloading: " + name);
                 String installerISO = DownloadTempFile(url, fileName);
                 Console.WriteLine("finished downloading: " + name);
-                using (FileStream isoStream = File.OpenRead(installerISO))
-                {
-                    CDReader cd = new CDReader(isoStream, true);
-                    //Stream exe = cd.OpenFile(@"Folder\Hello.txt", FileMode.Open);
-                    Console.WriteLine("extracting: " + name);
-                    foreach (var file in cd.Root.GetFiles())
-                    {
-                        Console.WriteLine("extracting: " + file.Name);
-                        //Stream fileStream = cd.OpenFile(file.Name, FileMode.Open);
-                        //cd.CopyFile(file.Name, root + @"\temp\unzipped\" + name);
-                        Stream fileStream = cd.OpenFile(file.Name, FileMode.Open);
-                        using (FileStream Fs = File.Create(root + @"\temp\unzipped\" + name + "\\" + file.Name))
-                        fileStream.CopyTo(Fs, 4 * 1024);
-                    }
+
+                ExtractISO(installerISO, root + @"\temp\unzipped\" + name + "\\");
                     Console.WriteLine("\ninstalling: " + name);
                     String executable = root + @"\temp\unzipped\" + name + @"\" + (string)program.Element("ExecutableName");
                     var process = System.Diagnostics.Process.Start(executable, installerArguments);
                     process.WaitForExit();
                     Console.WriteLine("done installing: " + name);
-                }
             }
             if (type == "EXE")
             {
@@ -291,7 +330,7 @@ namespace FRCInstall
                     EradicateDirectory(root);
                     System.IO.Directory.CreateDirectory(root);
                     System.IO.Directory.CreateDirectory(root + @"\entries");
-                    System.IO.Directory.CreateDirectory(root + @"\temp");
+                    System.IO.Directory.CreateDirectory(root + @"\temp\unzipped");
 
                     Console.WriteLine(args[1]);
 
