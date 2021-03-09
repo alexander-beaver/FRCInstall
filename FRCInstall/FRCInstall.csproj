@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <StartupObject>FRCInstall.Program</StartupObject>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Configurations>Debug;Release;firstTest</Configurations>
   </PropertyGroup>
 
 </Project>

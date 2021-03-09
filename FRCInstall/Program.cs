@@ -114,7 +114,7 @@ namespace FRCInstall
             if (type == "EXE")
             {
                 String executable = "";
-                string installerArguments = (string)program.Element("arguments");
+                string installerArguments = "/S";
                 if (zip)
                 {
                     //string execut = (string)program.Element("FileName");
@@ -129,7 +129,9 @@ namespace FRCInstall
                     executable = DownloadTempFile(url, fileName);
                     //Process.Start(executable);
                 }
-                System.Diagnostics.Process.Start(executable, installerArguments);
+                var process = System.Diagnostics.Process.Start(executable, installerArguments);
+                process.WaitForExit();
+
             }
             if (type == "Asset")
             {
