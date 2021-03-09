@@ -150,7 +150,7 @@ namespace FRCInstall
             }
         }
 
-        void ExtractISO(string ISOName, string ExtractionPath)
+        static void ExtractISO(string ISOName, string ExtractionPath)
         {
             using (FileStream ISOStream = File.Open(ISOName, FileMode.Open))
             {
@@ -159,7 +159,7 @@ namespace FRCInstall
                 Reader.Dispose();
             }
         }
-        void ExtractDirectory(DiscDirectoryInfo Dinfo, string RootPath, string PathinISO)
+        static void ExtractDirectory(DiscDirectoryInfo Dinfo, string RootPath, string PathinISO)
         {
             if (!string.IsNullOrWhiteSpace(PathinISO))
             {
@@ -239,6 +239,7 @@ namespace FRCInstall
                 Console.WriteLine("finished downloading: " + name);
 
                 ExtractISO(installerISO, root + @"\temp\unzipped\" + name + "\\");
+                    Thread.Sleep(200);
                     Console.WriteLine("\ninstalling: " + name);
                     String executable = root + @"\temp\unzipped\" + name + @"\" + (string)program.Element("ExecutableName");
                     var process = System.Diagnostics.Process.Start(executable, installerArguments);
@@ -261,6 +262,7 @@ namespace FRCInstall
                 {
                     executable = DownloadTempFile(url, fileName);
                 }
+                Thread.Sleep(200);
                 Console.WriteLine("\ninstalling: " + name);
                 var process = System.Diagnostics.Process.Start(executable, installerArguments);
                 process.WaitForExit();
@@ -312,17 +314,23 @@ namespace FRCInstall
 
             if (args.Length == 0)
             {
-                Console.WriteLine("Missing Arguments");
-                Console.WriteLine("Run with `help` to get help");
+                //Console.WriteLine("Missing Arguments");
+                //Console.WriteLine("Run with `help` to get help");
+                EradicateDirectory(root);
+                System.IO.Directory.CreateDirectory(root);
+                System.IO.Directory.CreateDirectory(root + @"\entries");
+                System.IO.Directory.CreateDirectory(root + @"\temp\unzipped");
+                InitializePackageManager("default_install.xml");
                 Environment.Exit(1);
             }
             if (args[0] == "help")
             {
-                Console.WriteLine("Please run the powershell script instead of the exe directly");
+                Console.WriteLine("Wow, look at mr fancy here running through console");
                 Console.WriteLine("If you meant to do this, add arguments for an output directory then a path to an xml file");
+                Console.WriteLine("Otherwise, just, y'know, run the file normally");
                 Environment.Exit(0);
             }
-            
+
             else if(args[0] == "init")
             {
                 if(args.Length >= 2)
