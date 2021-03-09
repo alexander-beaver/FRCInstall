@@ -127,7 +127,10 @@ namespace FRCInstall
                     {
                         Console.WriteLine("extracting: " + file.Name);
                         //Stream fileStream = cd.OpenFile(file.Name, FileMode.Open);
-                        cd.CopyFile(file.Name, root + @"\temp\unzipped\" + name);
+                        //cd.CopyFile(file.Name, root + @"\temp\unzipped\" + name);
+                        Stream fileStream = cd.OpenFile(file.Name, FileMode.Open);
+                        using (FileStream Fs = File.Create(root + @"\temp\unzipped\" + name + "\\" + file.Name))
+                        fileStream.CopyTo(Fs, 4 * 1024);
                     }
                     Console.WriteLine("installing: " + name);
                     String executable = root + @"\temp\unzipped\" + name + @"\" + (string)program.Element("ExecutableName");
