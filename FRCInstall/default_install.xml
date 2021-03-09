@@ -1,9 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 	to add: 
-		1.wpilib's wierd installer
 		2.python 3.8 and openCV optional?
-		3.vscode installer if not handeled during wpilib install
 		4.Israel radio config tool because 5ghz is for scrubs
 -->
 <Programs>
