@@ -161,7 +161,7 @@ namespace FRCInstall
 
 
             XElement doc = ReadXML(origin);
-            Console.WriteLine(doc);
+            //Console.WriteLine(doc);
 
             XElement[] programs = doc.Descendants("Program").ToArray();
             for(int i = 0; i < programs.Length; i++)
