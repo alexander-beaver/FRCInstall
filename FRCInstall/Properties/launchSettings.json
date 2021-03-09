@@ -10,6 +10,10 @@
     "Init": {
       "commandName": "Project",
       "commandLineArgs": "init default_install.xml"
+    },
+    "Update": {
+      "commandName": "Project",
+      "commandLineArgs": "update"
     }
   }
 }
