@@ -129,8 +129,10 @@ namespace FRCInstall
                     executable = DownloadTempFile(url, fileName);
                     //Process.Start(executable);
                 }
+                Console.WriteLine("installing: " + name);
                 var process = System.Diagnostics.Process.Start(executable, installerArguments);
                 process.WaitForExit();
+                Console.WriteLine("done installing: " + name);
 
             }
             if (type == "Asset")
@@ -145,7 +147,7 @@ namespace FRCInstall
                     String asset = DownloadTempFile(url, fileName);
                     System.IO.File.Copy(asset, root + @"\" + fileName, true);
                 }
-
+                Console.WriteLine("downloaded: " + fileName);
             }
 
 
