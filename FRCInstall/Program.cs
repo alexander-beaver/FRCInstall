@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO.Compression;
 using DiscUtils;
 using DiscUtils.Iso9660;
+using System.ComponentModel;
 
 /**
  * A program to process remote installation of FRC Tools
@@ -76,11 +77,76 @@ namespace FRCInstall
             return year + "|" + rev;
         }
 
+        private static void drawTextProgressBar(int progress, int total)
+        {
+            //draw empty progress bar
+            Console.CursorLeft = 0;
+            Console.Write("["); //start
+            Console.CursorLeft = 32;
+            Console.Write("]"); //end
+            Console.CursorLeft = 1;
+            float onechunk = 30.0f / total;
+
+            //draw filled part
+            int position = 1;
+            for (int i = 0; i <= onechunk * progress; i++)
+            {
+                Console.BackgroundColor = ConsoleColor.Green;
+
+                Console.CursorLeft = position++;
+                Console.Write(" ");
+            }
+
+            //draw unfilled part
+            for (int i = position; i <= 31; i++)
+            {
+                Console.BackgroundColor = ConsoleColor.Gray;
+                Console.CursorLeft = position++;
+                Console.Write(" ");
+            }
+
+            //draw totals
+            Console.CursorLeft = 36;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write(progress.ToString() + " of " + total.ToString() + "    "); //blanks at the end remove any excess
+        }
+        public static Boolean finishedDownload = false;
+        public static int progress = 0;
+        static void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+          
+           if (progress < e.ProgressPercentage)
+           {
+            progress = e.ProgressPercentage;
+            drawTextProgressBar(progress, 100);
+            }
+        }
+
+        static void wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            finishedDownload = true;
+        }
         static string DownloadTempFile(String url, String name)
         {
-            WebClient w = new WebClient();
-            w.DownloadFile(url, root + @"\temp\" + name);
-            return root + @"\temp\" + name;
+            using (WebClient wc = new WebClient())
+            {
+                wc.DownloadProgressChanged += wc_DownloadProgressChanged;
+                wc.DownloadFileCompleted += wc_DownloadFileCompleted;
+                if (finishedDownload)
+                {
+                    finishedDownload = false;
+                }
+                wc.DownloadFileTaskAsync(new Uri(url), root + @"\temp\" + name);
+                while (true)
+                {
+                    if(finishedDownload)
+                    {
+                        finishedDownload = false;
+                        progress = 0;
+                        return root + @"\temp\" + name;
+                    }
+                }
+            }
         }
 
         static void InstallProgram(XElement program)
@@ -179,7 +245,7 @@ namespace FRCInstall
                     String asset = DownloadTempFile(url, fileName);
                     System.IO.File.Copy(asset, root + @"\" + fileName, true);
                 }
-                Console.WriteLine("downloaded: " + fileName + " to C:\\Users\\Public\\Documents\\frcinstall");
+                Console.WriteLine("\ndownloaded: " + fileName + " to C:\\Users\\Public\\Documents\\frcinstall");
             }
 
 
