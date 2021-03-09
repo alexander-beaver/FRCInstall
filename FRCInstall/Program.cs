@@ -113,21 +113,22 @@ namespace FRCInstall
             }
             if (type == "EXE")
             {
+                String executable = "";
                 if (zip)
                 {
-                    string execut = (string)program.Element("FileName");
-                    Console.WriteLine("installing zipexe");
+                    //string execut = (string)program.Element("FileName");
+                    //Console.WriteLine("installing zipexe");
                     String zippedEXE = DownloadTempFile(url, fileName);
                     ZipFile.ExtractToDirectory(zippedEXE, root + @"\temp\unzipped\" + name);
-                    String executable = root + @"\temp\unzipped\" + name + @"\" + (string)program.Element("ExecutableName");
-                    Process.Start(executable);
+                    executable = root + @"\temp\unzipped\" + name + @"\" + (string)program.Element("ExecutableName");
+                    //Process.Start(executable);
                 }
                 else
                 {
-                    String executable = DownloadTempFile(url, fileName);
-                    Process.Start(executable);
+                    executable = DownloadTempFile(url, fileName);
+                    //Process.Start(executable);
                 }
-
+                System.Diagnostics.Process.Start(executable);
             }
             if (type == "Asset")
             {
