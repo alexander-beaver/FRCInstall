@@ -6,6 +6,8 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Diagnostics;
 using System.IO.Compression;
+using DiscUtils;
+using DiscUtils.Iso9660;
 
 /**
  * A program to process remote installation of FRC Tools
@@ -111,14 +113,34 @@ namespace FRCInstall
 
 
             }
+            if(type == "ISO")
+            {
+                Console.WriteLine("downloading: " + name);
+                String installerISO = DownloadTempFile(url, fileName);
+                using (FileStream isoStream = File.OpenRead(installerISO))
+                {
+                    CDReader cd = new CDReader(isoStream, true);
+                    //Stream exe = cd.OpenFile(@"Folder\Hello.txt", FileMode.Open);
+                    Console.WriteLine("extracting: " + name);
+                    foreach (var file in cd.Root.GetFiles())
+                    {
+                        Console.WriteLine("extracting: " + file.Name);
+                        file.CopyTo(root + @"\temp\unzipped\" + name, true);
+                    }
+                    Console.WriteLine("installing: " + name);
+                    String executable = root + @"\temp\unzipped\" + name + @"\" + (string)program.Element("ExecutableName");
+                }
+            }
             if (type == "EXE")
             {
                 String executable = "";
                 string installerArguments = "/S";
+                Console.WriteLine("downloading: " + name);
                 if (zip)
                 {
                     //string execut = (string)program.Element("FileName");
                     //Console.WriteLine("installing zipexe");
+                    Console.WriteLine("extracting: " + name);
                     String zippedEXE = DownloadTempFile(url, fileName);
                     ZipFile.ExtractToDirectory(zippedEXE, root + @"\temp\unzipped\" + name);
                     executable = root + @"\temp\unzipped\" + name + @"\" + (string)program.Element("ExecutableName");
@@ -139,6 +161,7 @@ namespace FRCInstall
             {
                 if (zip)
                 {
+                    Console.WriteLine("extracting: " + name);
                     String asset = DownloadTempFile(url, fileName);
                     ZipFile.ExtractToDirectory(asset, root + @"\" + name);
                 }

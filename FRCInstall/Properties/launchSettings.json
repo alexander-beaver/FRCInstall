@@ -9,7 +9,7 @@
     },
     "Init": {
       "commandName": "Project",
-      "commandLineArgs": "init ../../../sample_install.xml"
+      "commandLineArgs": "init default_install.xml"
     }
   }
 }

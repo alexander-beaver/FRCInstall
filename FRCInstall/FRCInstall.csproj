@@ -8,4 +8,18 @@
     <Configurations>Debug;Release;firstTest</Configurations>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="default_install.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="default_install.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Discutils" Version="0.11.0.2" />
+  </ItemGroup>
+
 </Project>
