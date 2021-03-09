@@ -126,7 +126,8 @@ namespace FRCInstall
                     foreach (var file in cd.Root.GetFiles())
                     {
                         Console.WriteLine("extracting: " + file.Name);
-                        file.CopyTo(root + @"\temp\unzipped\" + name, true);
+                        //Stream fileStream = cd.OpenFile(file.Name, FileMode.Open);
+                        cd.CopyFile(file.Name, root + @"\temp\unzipped\" + name);
                     }
                     Console.WriteLine("installing: " + name);
                     String executable = root + @"\temp\unzipped\" + name + @"\" + (string)program.Element("ExecutableName");
@@ -163,9 +164,9 @@ namespace FRCInstall
             }
             if (type == "Asset")
             {
+                Console.WriteLine("downloading: " + name);
                 if (zip)
                 {
-                    Console.WriteLine("extracting: " + name);
                     String asset = DownloadTempFile(url, fileName);
                     ZipFile.ExtractToDirectory(asset, root + @"\" + name);
                 }
@@ -174,7 +175,7 @@ namespace FRCInstall
                     String asset = DownloadTempFile(url, fileName);
                     System.IO.File.Copy(asset, root + @"\" + fileName, true);
                 }
-                Console.WriteLine("downloaded: " + fileName);
+                Console.WriteLine("downloaded: " + fileName + "to C:\\Users\\Public\\Documents\\frcinstall");
             }
 
 
