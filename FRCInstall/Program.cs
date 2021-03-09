@@ -199,7 +199,7 @@ namespace FRCInstall
                         using (FileStream Fs = File.Create(root + @"\temp\unzipped\" + name + "\\" + file.Name))
                         fileStream.CopyTo(Fs, 4 * 1024);
                     }
-                    Console.WriteLine("installing: " + name);
+                    Console.WriteLine("\ninstalling: " + name);
                     String executable = root + @"\temp\unzipped\" + name + @"\" + (string)program.Element("ExecutableName");
                     var process = System.Diagnostics.Process.Start(executable, installerArguments);
                     process.WaitForExit();
@@ -213,20 +213,16 @@ namespace FRCInstall
                 Console.WriteLine("downloading: " + name);
                 if (zip)
                 {
-                    //string execut = (string)program.Element("FileName");
-                    //Console.WriteLine("installing zipexe");
                     Console.WriteLine("extracting: " + name);
                     String zippedEXE = DownloadTempFile(url, fileName);
                     ZipFile.ExtractToDirectory(zippedEXE, root + @"\temp\unzipped\" + name);
                     executable = root + @"\temp\unzipped\" + name + @"\" + (string)program.Element("ExecutableName");
-                    //Process.Start(executable);
                 }
                 else
                 {
                     executable = DownloadTempFile(url, fileName);
-                    //Process.Start(executable);
                 }
-                Console.WriteLine("installing: " + name);
+                Console.WriteLine("\ninstalling: " + name);
                 var process = System.Diagnostics.Process.Start(executable, installerArguments);
                 process.WaitForExit();
                 Console.WriteLine("done installing: " + name);
@@ -259,7 +255,7 @@ namespace FRCInstall
 
 
             XElement doc = ReadXML(origin);
-            //Console.WriteLine(doc);
+            Console.WriteLine("CLICKING THIS WINDOW BREAKS PROGRESS BAR, CTRL+C TO BRING IT BACK");
 
             XElement[] programs = doc.Descendants("Program").ToArray();
             for(int i = 0; i < programs.Length; i++)
