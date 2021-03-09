@@ -115,6 +115,7 @@ namespace FRCInstall
             }
             if(type == "ISO")
             {
+                string installerArguments = "/S";
                 Console.WriteLine("downloading: " + name);
                 String installerISO = DownloadTempFile(url, fileName);
                 using (FileStream isoStream = File.OpenRead(installerISO))
@@ -129,6 +130,9 @@ namespace FRCInstall
                     }
                     Console.WriteLine("installing: " + name);
                     String executable = root + @"\temp\unzipped\" + name + @"\" + (string)program.Element("ExecutableName");
+                    var process = System.Diagnostics.Process.Start(executable, installerArguments);
+                    process.WaitForExit();
+                    Console.WriteLine("done installing: " + name);
                 }
             }
             if (type == "EXE")
