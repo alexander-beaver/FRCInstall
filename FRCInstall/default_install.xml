@@ -25,6 +25,16 @@
 		<Revision>0</Revision>
 		<Zip>false</Zip>
 	</Program>
+  <Program>
+    <Type>ISO</Type>
+    <Name>WPILib Installer</Name>
+    <FileName>WPILib_Windows64-2021.2.2.iso</FileName>
+    <URL>https://github.com/wpilibsuite/allwpilib/releases/download/v2021.2.2/WPILib_Windows64-2021.2.2.iso</URL>
+    <ExecutableName>WPILibInstaller.exe</ExecutableName>
+    <Year>2021</Year>
+    <Revision>0</Revision>
+    <Zip>false</Zip>
+  </Program>
 	<Program>
 		<Type>EXE</Type>
 		<Name>Game Tools</Name>
