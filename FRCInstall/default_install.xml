@@ -43,6 +43,7 @@
 		<Year>2020</Year>
 		<Revision>0</Revision>
 		<Zip>false</Zip>
+		<Silent>false</Silent>
 	</Program>
 	<Program>
 		<Type>EXE</Type>
@@ -52,6 +53,7 @@
 		<Year>2021</Year>
 		<Revision>0</Revision>
 		<Zip>false</Zip>
+		<Silent>true</Silent>
 	</Program>
   <Program>
     <Type>EXE</Type>
@@ -62,6 +64,7 @@
     <Year>2021</Year>
     <Revision>0</Revision>
     <Zip>true</Zip>
+	  <Silent>false</Silent>
   </Program>
 		<Program>
 		<Type>EXE</Type>
@@ -71,15 +74,17 @@
 		<Year>2021</Year>
 		<Revision>0</Revision>
 		<Zip>false</Zip>
+			<Silent>false</Silent>
 	</Program>
 		<Program>
 		<Type>EXE</Type>
 		<Name>Radio Configuration Tool</Name>
-		<FileName>FRC_Radio_Configuration_20_0_0.exe</FileName>
+		<FileName>FRC_Radio_Configuration_20_0_0.zip</FileName>
      <ExecutableName>FRC_Radio_Configuration_20_0_0.exe</ExecutableName>
      <URL>https://firstfrc.blob.core.windows.net/frc2020/Radio/FRC_Radio_Configuration_20_0_0.zip</URL>
 		<Year>2020</Year>
 		<Revision>0</Revision>
 		<Zip>true</Zip>
+			<Silent>false</Silent>
 	</Program>
 </Programs>

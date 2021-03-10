@@ -43,6 +43,7 @@
 		<Year>2020</Year>
 		<Revision>0</Revision>
 		<Zip>false</Zip>
+		<Silent>false</Silent>
 	</Program>
 	<Program>
 		<Type>EXE</Type>
@@ -52,6 +53,7 @@
 		<Year>2021</Year>
 		<Revision>0</Revision>
 		<Zip>false</Zip>
+		<Silent>true</Silent>
 	</Program>
   <Program>
     <Type>EXE</Type>
@@ -62,6 +64,7 @@
     <Year>2021</Year>
     <Revision>0</Revision>
     <Zip>true</Zip>
+	  <Silent>false</Silent>
   </Program>
 		<Program>
 		<Type>EXE</Type>
@@ -71,6 +74,7 @@
 		<Year>2021</Year>
 		<Revision>0</Revision>
 		<Zip>false</Zip>
+			<Silent>false</Silent>
 	</Program>
 		<Program>
 		<Type>EXE</Type>
@@ -81,5 +85,6 @@
 		<Year>2020</Year>
 		<Revision>0</Revision>
 		<Zip>true</Zip>
+			<Silent>false</Silent>
 	</Program>
 </Programs>

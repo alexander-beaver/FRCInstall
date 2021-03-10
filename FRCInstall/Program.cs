@@ -256,7 +256,12 @@ namespace FRCInstall
             if (type == "EXE")
             {
                 String executable = "";
-                string installerArguments = "/S";
+                bool silent = (bool)program.Element("Silent");
+                string installerArguments = "";
+                if (silent == true)
+                {
+                    installerArguments = "/S";
+                }
                 Console.WriteLine("downloading: " + name);
                 if (zip)
                 {
