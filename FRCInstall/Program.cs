@@ -323,17 +323,7 @@ namespace FRCInstall
         {
             Console.WriteLine("FRC Software Installer");
 
-            if (args.Length == 0)
-            {
-                //Console.WriteLine("Missing Arguments");
-                //Console.WriteLine("Run with `help` to get help");
-                EradicateDirectory(root);
-                System.IO.Directory.CreateDirectory(root);
-                System.IO.Directory.CreateDirectory(root + @"\entries");
-                System.IO.Directory.CreateDirectory(root + @"\temp\unzipped");
-                InitializePackageManager("default_install.xml");
-                Environment.Exit(1);
-            }
+            
             if (args[0] == "help")
             {
                 Console.WriteLine("Wow, look at mr fancy here running through console");
@@ -369,6 +359,11 @@ namespace FRCInstall
             else if (args[0] == "update")
             {
                 InstallUpdates();
+            }
+            else
+            {
+                Console.WriteLine("Error Running");
+                Environment.Exit(1);
             }
         }
        
