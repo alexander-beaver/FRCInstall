@@ -1,0 +1,45 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "FRCInstall/1.0.0": {
+        "dependencies": {
+          "Discutils": "0.11.0.2"
+        },
+        "runtime": {
+          "FRCInstall.dll": {}
+        }
+      },
+      "Discutils/0.11.0.2": {
+        "runtime": {
+          "lib/net40/DiscUtils.Common.dll": {
+            "assemblyVersion": "0.11.0.0",
+            "fileVersion": "0.11.0.0"
+          },
+          "lib/net40/DiscUtils.dll": {
+            "assemblyVersion": "0.11.0.0",
+            "fileVersion": "0.11.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FRCInstall/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Discutils/0.11.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1MZTbLsLXhUbHx98G0z3sm6GRVWsXPo0a+ZqtsvrHOUppInEDq7wLFDu1b/SkB6ZQecbJlbdg+Z7wqZdHBRBbQ==",
+      "path": "discutils/0.11.0.2",
+      "hashPath": "discutils.0.11.0.2.nupkg.sha512"
+    }
+  }
+}

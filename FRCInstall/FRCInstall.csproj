@@ -6,6 +6,14 @@
     <StartupObject>FRCInstall.Program</StartupObject>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Configurations>Debug;Release;firstTest</Configurations>
+    <Authors>Alex Beaver and Nayan Smuek</Authors>
+    <Copyright>(c) 2021 Alex Beaver; All Rights Reserved</Copyright>
+    <PackageProjectUrl>https://frcinstall.app.co.ee</PackageProjectUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>true</Optimize>
+    <OutputPath>build\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

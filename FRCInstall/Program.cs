@@ -37,9 +37,19 @@ namespace FRCInstall
             string realPath = root + path;
             File.WriteAllText(realPath, content);
         }
+        static void WriteTextToAbsolutePath(string path, string content)
+        {
+            string realPath =  path;
+            File.WriteAllText(realPath, content);
+        }
         static string ReadDocument(string path)
         {
             string contents = File.ReadAllText(root+path);
+            return contents;
+        }
+        static string ReadAbsoluteDocument(string path)
+        {
+            string contents = File.ReadAllText(path);
             return contents;
         }
 
@@ -78,7 +88,7 @@ namespace FRCInstall
             return year + "|" + rev;
         }
 
-        private static void drawTextProgressBar(int progress, int total)
+        private static void DrawTextProgressBar(int progress, int total)
         {
             //draw empty progress bar
             Console.CursorLeft = 0;
@@ -119,7 +129,7 @@ namespace FRCInstall
            if (progress < e.ProgressPercentage)
            {
             progress = e.ProgressPercentage;
-            drawTextProgressBar(progress, 100);
+            DrawTextProgressBar(progress, 100);
             }
         }
 
@@ -216,17 +226,14 @@ namespace FRCInstall
 
             if (File.Exists(entryPath))
             {
-                string version = ReadDocument(entryPath);
+                string version = ReadAbsoluteDocument(entryPath);
 
                 if (CreatePKGString(year, rev).Equals(version))
                 {
+                    Console.WriteLine("Package " + name + " is update to date: " + version);
+                    Console.WriteLine("Skipping " + name);
                     return;
 
-                }
-                else
-                {
-
-                    
                 }
 
 
@@ -274,6 +281,7 @@ namespace FRCInstall
                 Console.WriteLine("downloading: " + name);
                 if (zip)
                 {
+                    EradicateDirectory(root + @"\" + name);
                     String asset = DownloadTempFile(url, fileName);
                     ZipFile.ExtractToDirectory(asset, root + @"\" + name);
                 }
@@ -285,6 +293,8 @@ namespace FRCInstall
                 Thread.Sleep(200);
                 Console.WriteLine("\ndownloaded: " + fileName + " to C:\\Users\\Public\\Documents\\frcinstall");
             }
+
+            WriteTextToAbsolutePath(entryPath, CreatePKGString(year, rev));
 
 
         }
@@ -304,25 +314,16 @@ namespace FRCInstall
             {
                 InstallProgram(programs[i]);
             }
+            EradicateDirectory(root + @"\temp");
+
         }
 
-     
+
         static void Main(string[] args)
         {
             Console.WriteLine("FRC Software Installer");
-            Console.WriteLine("(c) 2021 Alex Beaver. All Rights Reserved.");
 
-            if (args.Length == 0)
-            {
-                //Console.WriteLine("Missing Arguments");
-                //Console.WriteLine("Run with `help` to get help");
-                EradicateDirectory(root);
-                System.IO.Directory.CreateDirectory(root);
-                System.IO.Directory.CreateDirectory(root + @"\entries");
-                System.IO.Directory.CreateDirectory(root + @"\temp\unzipped");
-                InitializePackageManager("default_install.xml");
-                Environment.Exit(1);
-            }
+            
             if (args[0] == "help")
             {
                 Console.WriteLine("Wow, look at mr fancy here running through console");
@@ -355,6 +356,16 @@ namespace FRCInstall
                 }
 
             }
+            else if (args[0] == "update")
+            {
+                InstallUpdates();
+            }
+            else
+            {
+                Console.WriteLine("Error Running");
+                Environment.Exit(1);
+            }
         }
+       
     }
 }
