@@ -87,4 +87,34 @@
 		<Zip>true</Zip>
 			<Silent>false</Silent>
 	</Program>
+	<Program>
+		<Type>EXE</Type>
+		<Name>GitHub Desktop</Name>
+		<FileName>GitHubDesktopSetup.exe</FileName>
+		<URL>https://desktop.githubusercontent.com/releases/2.6.5-1995d7d8/GitHubDesktopSetup.exe</URL>
+		<Year>2020</Year>
+		<Revision>0</Revision>
+		<Zip>false</Zip>
+		<Silent>false</Silent>
+	</Program>
+<Program>
+		<Type>EXE</Type>
+		<Name>Ninite</Name>
+		<FileName>ninite.exe</FileName>
+		<URL>https://ninite.com/7zip-adoptjavax11-adoptjavax8-chrome-correttojdkx11-correttojdkx8-edge-filezilla-firefox-inkscape-libreoffice-notepadplusplus-putty-pythonx3-sharex-vlc/ninite.exe</URL>
+		<Year>2020</Year>
+		<Revision>0</Revision>
+		<Zip>false</Zip>
+		<Silent>false</Silent>
+	</Program>
+	<Program>
+		<!--Replace this Powershell Script with a device configuration script-->
+		<Type>PS</Type>
+		<Name>Test Powershell</Name>
+		<FileName>sample.ps1</FileName>
+		<URL>http://app-cdn.vercel.app/frc-install-supporting/sample.ps1</URL>
+		<Year>2020</Year>
+		<Revision>1</Revision>
+		<Zip>false</Zip>
+	</Program>
 </Programs>

@@ -33,18 +33,19 @@ namespace FRCInstall
         }
 
 
-        static void WriteTextToDocument(string path, string content){
+        static void WriteTextToDocument(string path, string content)
+        {
             string realPath = root + path;
             File.WriteAllText(realPath, content);
         }
         static void WriteTextToAbsolutePath(string path, string content)
         {
-            string realPath =  path;
+            string realPath = path;
             File.WriteAllText(realPath, content);
         }
         static string ReadDocument(string path)
         {
-            string contents = File.ReadAllText(root+path);
+            string contents = File.ReadAllText(root + path);
             return contents;
         }
         static string ReadAbsoluteDocument(string path)
@@ -125,11 +126,11 @@ namespace FRCInstall
         public static int progress = 0;
         static void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-          
-           if (progress < e.ProgressPercentage)
-           {
-            progress = e.ProgressPercentage;
-            DrawTextProgressBar(progress, 100);
+
+            if (progress < e.ProgressPercentage)
+            {
+                progress = e.ProgressPercentage;
+                DrawTextProgressBar(progress, 100);
             }
         }
 
@@ -150,7 +151,7 @@ namespace FRCInstall
                 wc.DownloadFileTaskAsync(new Uri(url), root + @"\temp\" + name);
                 while (true)
                 {
-                    if(finishedDownload)
+                    if (finishedDownload)
                     {
                         finishedDownload = false;
                         progress = 0;
@@ -238,7 +239,7 @@ namespace FRCInstall
 
 
             }
-            if(type == "ISO")
+            if (type == "ISO")
             {
                 string installerArguments = "/S";
                 Console.WriteLine("downloading: " + name);
@@ -246,23 +247,25 @@ namespace FRCInstall
                 Console.WriteLine("finished downloading: " + name);
 
                 ExtractISO(installerISO, root + @"\temp\unzipped\" + name + "\\");
-                    Thread.Sleep(200);
-                    Console.WriteLine("\ninstalling: " + name);
-                    String executable = root + @"\temp\unzipped\" + name + @"\" + (string)program.Element("ExecutableName");
-                    var process = System.Diagnostics.Process.Start(executable, installerArguments);
-                    process.WaitForExit();
-                    Console.WriteLine("done installing: " + name);
+                Thread.Sleep(200);
+                Console.WriteLine("\ninstalling: " + name);
+                String executable = root + @"\temp\unzipped\" + name + @"\" + (string)program.Element("ExecutableName");
+                var process = System.Diagnostics.Process.Start(executable, installerArguments);
+                process.WaitForExit();
+                Console.WriteLine("done installing: " + name);
             }
             if (type == "EXE")
             {
                 String executable = "";
                 bool silent = (bool)program.Element("Silent");
                 string installerArguments = "";
+                Console.WriteLine("downloading: " + name);
+
                 if (silent == true)
                 {
                     installerArguments = "/S";
+                    Console.WriteLine("This is a silent installer. Please be patient.");
                 }
-                Console.WriteLine("downloading: " + name);
                 if (zip)
                 {
                     Console.WriteLine("extracting: " + name);
@@ -298,6 +301,22 @@ namespace FRCInstall
                 Thread.Sleep(200);
                 Console.WriteLine("\ndownloaded: " + fileName + " to C:\\Users\\Public\\Documents\\frcinstall");
             }
+            if (type == "PS")
+            {
+                Console.WriteLine("downloading: " + name);
+                String script = DownloadTempFile(url, fileName);
+                var startInfo = new ProcessStartInfo()
+                {
+                    FileName = "powershell.exe",
+                    Arguments = $"-NoProfile -ExecutionPolicy unrestricted -file \"{script}\"",
+                    UseShellExecute = true,
+                    Verb = "runas"
+                };
+                var process = Process.Start(startInfo);
+                process.WaitForExit();
+                Console.WriteLine("done installing: " + name);
+
+            }
 
             WriteTextToAbsolutePath(entryPath, CreatePKGString(year, rev));
 
@@ -315,7 +334,7 @@ namespace FRCInstall
             Console.WriteLine("CLICKING THIS WINDOW BREAKS PROGRESS BAR, CTRL+C TO BRING IT BACK");
 
             XElement[] programs = doc.Descendants("Program").ToArray();
-            for(int i = 0; i < programs.Length; i++)
+            for (int i = 0; i < programs.Length; i++)
             {
                 InstallProgram(programs[i]);
             }
@@ -328,7 +347,7 @@ namespace FRCInstall
         {
             Console.WriteLine("FRC Software Installer");
 
-            
+
             if (args[0] == "help")
             {
                 Console.WriteLine("Wow, look at mr fancy here running through console");
@@ -337,9 +356,9 @@ namespace FRCInstall
                 Environment.Exit(0);
             }
 
-            else if(args[0] == "init")
+            else if (args[0] == "init")
             {
-                if(args.Length >= 2)
+                if (args.Length >= 2)
                 {
                     EradicateDirectory(root);
                     System.IO.Directory.CreateDirectory(root);
@@ -350,7 +369,7 @@ namespace FRCInstall
 
                     InitializePackageManager(args[1]);
                     Environment.Exit(0);
-                    
+
                 }
                 else
                 {
@@ -371,6 +390,6 @@ namespace FRCInstall
                 Environment.Exit(1);
             }
         }
-       
+
     }
 }
