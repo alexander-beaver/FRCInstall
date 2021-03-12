@@ -282,6 +282,11 @@ namespace FRCInstall
                 var process = System.Diagnostics.Process.Start(executable, installerArguments);
                 process.WaitForExit();
                 Console.WriteLine("done installing: " + name);
+                if ((string)program.Element("Path") != null)
+                {
+                    Environment.SetEnvironmentVariable("Path", Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine)+(string)program.Element("Path"), EnvironmentVariableTarget.Machine);
+                    Console.WriteLine("added " + name + " to system path");
+                }
 
             }
             if (type == "Asset")
